@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 
 const Hero = () => {
+  const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
   const userInput = useRef(null);
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
@@ -13,8 +14,7 @@ const Hero = () => {
   }, []);
 
   const fetchWeather = async (city) => {
-    const url = `https://api.weatherapi.com/v1/current.json?key=63b8f36496664fccba9103245251007&q=${city}&aqi=yes`;
-
+    const url = `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}&aqi=yes`;
     try {
       const response = await fetch(url);
       if (!response.ok) throw new Error("Invalid city name or network issue");
@@ -46,7 +46,7 @@ const Hero = () => {
     navigator.geolocation.getCurrentPosition(
       async (position) => {
         const { latitude, longitude } = position.coords;
-        const url = `https://api.weatherapi.com/v1/current.json?key=63b8f36496664fccba9103245251007&q=${latitude},${longitude}&aqi=yes`;
+        const url = `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${latitude},${longitude}&aqi=yes`;
         try {
           const response = await fetch(url);
           if (!response.ok)
